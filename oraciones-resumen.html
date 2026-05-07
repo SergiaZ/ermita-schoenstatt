@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitalarios — Resumen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="resumen-oraciones.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container summary-page">
+        <div class="theme-toolbar" role="region" aria-label="Apariencia">
+            <span class="theme-toolbar-hint">Claro</span>
+            <label class="theme-switch">
+                <input type="checkbox" id="themeDark" class="theme-switch-input" aria-describedby="themeHint">
+                <span class="theme-switch-track" aria-hidden="true">
+                    <span class="theme-switch-thumb"></span>
+                </span>
+                <span id="themeHint" class="visually-hidden">Activar modo oscuro</span>
+            </label>
+            <span class="theme-toolbar-hint">Oscuro</span>
+        </div>
+
+        <p class="summary-back"><a href="index.html">← Volver a la Ermita</a></p>
+
+        <header class="app-card capitalarios-resumen-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="" class="main-logo" width="120" height="120" role="presentation">
+            </div>
+            <h1 class="summary-title">Capitalarios de Gracia</h1>
+            <p class="capitalarios-period-explainer">
+                Cada periodo va del <strong>día 19</strong> de un mes al <strong>día 18</strong> del mes siguiente.
+                Elige el mes del <strong>19 de inicio</strong> de ese periodo para ver cuántos capitalarios hubo.
+            </p>
+            <p class="capitalarios-total-line">
+                En el periodo indicado hubo <strong id="capitalariosTotal">0</strong> capitalarios.
+            </p>
+            <p class="capitalarios-period-range" id="periodRangeLabel" aria-live="polite"></p>
+            <p class="capitalarios-service-status" id="capitalariosStatus"></p>
+        </header>
+
+        <section class="app-card capitalarios-print-card" aria-label="Consultar periodo">
+            <h2 class="capitalarios-print-title">Elegir periodo (inicia el 19 de…)</h2>
+            <div class="capitalarios-period-row">
+                <div class="capitalarios-date-field">
+                    <label for="periodMonth">Mes del 19 inicial</label>
+                    <select id="periodMonth" name="periodMonth" autocomplete="off"></select>
+                </div>
+                <div class="capitalarios-date-field">
+                    <label for="periodYear">Año</label>
+                    <select id="periodYear" name="periodYear" autocomplete="off"></select>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-card oraciones-conteo-card" aria-labelledby="oracionesConteoHeading">
+            <h2 id="oracionesConteoHeading" class="capitalarios-print-title">Capitalarios por oración (mismo período)</h2>
+            <p class="capitalarios-print-hint">
+                Se calcula automáticamente con el mismo periodo seleccionado arriba (regla 19 → 18).
+            </p>
+            <p class="capitalarios-service-status" id="oracionesCountStatus" aria-live="polite"></p>
+            <ul class="oraciones-count-list" id="oracionesCountList" aria-label="Conteo por oración"></ul>
+        </section>
+
+        <section class="app-card oraciones-admin-section" aria-labelledby="oraciones-admin-heading">
+            <h2 id="oraciones-admin-heading" class="capitalarios-print-title">Oraciones para la Ermita</h2>
+            <p class="oraciones-admin-intro">
+                Las oraciones que guardes aquí aparecen en el menú “Selecciona una oración” de la página principal.
+            </p>
+            <div class="capitalarios-date-field oraciones-nombre-row">
+                <label for="nuevaOracionNombre">Nombre</label>
+                <input type="text" id="nuevaOracionNombre" name="nombre" autocomplete="off" maxlength="220" placeholder="Ej. Padre Nuestro">
+            </div>
+            <div class="capitalarios-date-field">
+                <label for="nuevaOracionContenido">Contenido</label>
+                <p class="oraciones-format-hint">
+                    Se conservan los saltos de línea, las líneas en blanco y los párrafos al mostrar la oración en la Ermita.
+                </p>
+                <textarea id="nuevaOracionContenido" name="contenido" rows="10" placeholder="Escribe el texto completo…" spellcheck="true"></textarea>
+            </div>
+            <p class="capitalarios-service-status" id="oracionesAdminStatus" aria-live="polite"></p>
+            <div class="oraciones-form-actions">
+                <button type="button" class="btn-submit" id="btnGuardarOracion">Guardar oración</button>
+                <button type="button" class="btn-action btn-cancelar-edicion" id="btnCancelarEdicionOracion" hidden>Cancelar edición</button>
+            </div>
+
+            <h3 class="oraciones-list-title">Oraciones publicadas</h3>
+            <p class="oraciones-list-empty" id="oracionesListEmpty" hidden>No hay oraciones todavía.</p>
+            <ul class="oraciones-list" id="listaOraciones" aria-label="Lista de oraciones publicadas"></ul>
+        </section>
+
+        <section class="app-card capitalarios-delete-card" aria-label="Eliminar capitalarios por fechas">
+            <h2 class="capitalarios-delete-title">Eliminar capitalarios por rango de fechas</h2>
+            <p class="capitalarios-delete-warn">
+                Solo para quienes administran el sitio. Se considera el día completo: desde la 00:00 del “desde” hasta las 23:59 del “hasta”, según la hora de tu dispositivo.
+            </p>
+            <div class="capitalarios-date-row">
+                <div class="capitalarios-date-field">
+                    <label for="deleteDateFrom">Desde</label>
+                    <input type="date" id="deleteDateFrom" name="deleteDateFrom" autocomplete="off">
+                </div>
+                <div class="capitalarios-date-field">
+                    <label for="deleteDateTo">Hasta</label>
+                    <input type="date" id="deleteDateTo" name="deleteDateTo" autocomplete="off">
+                </div>
+            </div>
+            <p class="capitalarios-delete-status" id="deleteStatus" aria-live="polite"></p>
+            <button type="button" class="btn-danger" id="btnEliminarPorFechas">Eliminar capitalarios de este rango</button>
+        </section>
+
+        <footer class="final-blessing">
+            <p class="summary-footer-note">
+                Puedes entregar nuevos capitalarios desde la
+                <a href="index.html">página principal de la Ermita</a>.
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+    <script src="resumen-capitalarios.js"></script>
+    <script src="resumen-oraciones-admin.js"></script>
+</body>
+</html>

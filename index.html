@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ermita de la Madre y Reina - Schoenstatt</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="theme-toolbar" role="region" aria-label="Apariencia">
+            <span class="theme-toolbar-hint">Claro</span>
+            <label class="theme-switch">
+                <input type="checkbox" id="themeDark" class="theme-switch-input" aria-describedby="themeHint">
+                <span class="theme-switch-track" aria-hidden="true">
+                    <span class="theme-switch-thumb"></span>
+                </span>
+                <span id="themeHint" class="visually-hidden">Activar modo oscuro</span>
+            </label>
+            <span class="theme-toolbar-hint">Oscuro</span>
+        </div>
+
+        <!-- Encabezado Principal -->
+        <header class="app-card main-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="Campaña Virgen Peregrina — Schoenstatt Ecuador" class="main-logo" width="220" height="220">
+            </div>
+            
+            <h1 class="welcome-title">Bienvenidos a la Ermita de la Madre, Reina y Victoriosa, tres veces Admirable de Schoenstatt</h1>
+            
+            <p class="intro-description">
+                Es un pequeño santuario donde vivimos la <strong>Alianza de Amor con María</strong>, confiando en que Ella obra gracias en el corazón de quienes la visitan: 
+                <span class="gracias-tag">Cobijamiento</span>, <span class="gracias-tag">Transformación interior</span>, <span class="gracias-tag">Envío apostólico</span>.
+            </p>
+            
+            <div class="activity-section">
+                <h3>¿Qué puedes hacer aquí?</h3>
+                <div class="activity-grid">
+                    <span>Rezar en silencio o en comunidad</span>
+                    <span>Ofrecer tus intenciones</span>
+                    <span>Agradecer bendiciones recibidas</span>
+                    <span>Depositar tus Capitales de Gracia</span>
+                    <span>Consagrarte a la Virgen María</span>
+                </div>
+            </div>
+            
+            <p class="theological-note">
+                La Virgen María te acoge como Madre y te conduce al encuentro con su Hijo Jesús.
+            </p>
+
+            <div class="history-card">
+                <p>Esta ermita pertenece a la <strong>"Campaña de la Virgen Peregrina del Movimiento Apostólico de Schoenstatt"</strong>.</p>
+                <p class="date-info">Un lugar santo desde el 11 de julio del 2011, entronizada por Mons. Lorenzo Voltoline.</p>
+            </div>
+        </header>
+
+        <!-- Sección de Capitales de Gracia -->
+        <section class="app-card capitalario-section">
+            <h2 class="section-title">Ofrecimiento de Capitales de Gracia</h2>
+            <p class="privacy-notice">🛡️ Estas peticiones son privadas y anónimas.</p>
+            
+            <div class="capital-input-group">
+                <label>Madre, yo te ofrezco:</label>
+                <textarea id="ofreceInput" placeholder="Tus sacrificios, alegrías o trabajos..."></textarea>
+            </div>
+            
+            <div class="capital-input-group">
+                <label>Madre, yo te agradezco:</label>
+                <textarea id="agradeceInput" placeholder="Tus bendiciones recibidas..."></textarea>
+            </div>
+            
+            <div class="capital-input-group">
+                <label>Madre, yo te pido:</label>
+                <textarea id="pideInput" placeholder="Tus intenciones personales..."></textarea>
+            </div>
+
+            <div class="selector-wrapper capitalario-oracion-selector">
+                <label for="prayerSelector">Selecciona una oración:</label>
+                <select id="prayerSelector" onchange="mostrarOracion()" aria-busy="true">
+                    <option value="">-- Elige para rezar --</option>
+                </select>
+                <p class="prayer-select-hint" id="prayerSelectHint" aria-live="polite"></p>
+            </div>
+            
+            <p class="capitalario-misa-note">
+                Cada día <strong>18</strong> de mes, todos los capitalarios son ofrecidos en una
+                <strong>misa solemne del Día de la Alianza</strong>.
+            </p>
+            <button type="button" id="btnEntregarCapital" onclick="guardarCapitalario()" class="btn-submit">Entregar Capitalario</button>
+            <p class="capitalario-feedback privacy-notice" id="capitalarioFeedback" aria-live="polite"></p>
+            <div class="counter-display">Capitalarios recibidos hoy: <span id="totalCapitales">…</span></div>
+        </section>
+
+        <!-- Sección de Oraciones -->
+        <section class="app-card prayer-module">
+            <p class="spiritual-quote">
+                "En Schoenstatt, creemos que cada oración, sacrificio o buena acción ofrecida con amor, se convierte en un regalo espiritual para María"
+            </p>
+
+            <div id="prayerDisplay" class="prayer-viewer" style="display:none;">
+                <div id="prayerContent" class="prayer-text"></div>
+                <div class="prayer-controls">
+                    <button type="button" onclick="leerOracion()" class="btn-action">🔊 Escuchar</button>
+                    <button type="button" id="btnPausarOracion" onclick="pausarOReanudarOracion()" class="btn-action" disabled>⏸ Pausar</button>
+                    <button type="button" onclick="copiarOracion()" class="btn-action">📋 Copiar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-card audio-module" aria-labelledby="audioModuleTitle">
+            <h2 id="audioModuleTitle" class="section-title">Himno a la peregrina</h2>
+            <div class="local-audio-wrapper">
+                <audio class="local-audio-player" controls preload="none">
+                    <source src="assets/audio/oracion.mp3" type="audio/mpeg">
+                    Tu navegador no soporta el reproductor de audio.
+                </audio>
+            </div>
+        </section>
+
+        <footer class="final-blessing">
+            <p>Gracias por visitar este lugar de gracia.</p>
+            <p class="peace-msg">Lleva contigo la paz de María y sé instrumento de amor en el mundo.</p>
+            <h2 class="nothing-without">Nada sin Ti, nada sin nosotros.</h2>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

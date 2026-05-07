@@ -1,0 +1,714 @@
+/* Página resumen — complementa style.css (variables + tema) */
+
+.summary-page {
+  max-width: 820px;
+}
+
+.summary-back {
+  margin-bottom: 0.75rem;
+}
+
+.summary-back a {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-blue);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.summary-back a:hover {
+  text-decoration: underline;
+}
+
+.summary-hero {
+  text-align: center;
+  padding-bottom: 0.25rem;
+}
+
+.summary-hero .logo-container {
+  margin-bottom: 1rem;
+}
+
+.summary-hero .main-logo {
+  width: min(140px, 38vw);
+}
+
+.summary-kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 0.5rem;
+}
+
+.summary-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: var(--color-blue);
+  margin: 0 0 0.65rem;
+  line-height: 1.25;
+}
+
+.summary-lead {
+  font-size: 0.98rem;
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.context-card {
+  margin-top: 1.25rem;
+}
+
+.context-card h2 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-blue);
+  margin: 0 0 0.65rem;
+}
+
+.context-card p {
+  margin: 0 0 0.65rem;
+  font-size: 0.94rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+.context-card p:last-child {
+  margin-bottom: 0;
+}
+
+.context-card strong {
+  color: var(--color-text);
+}
+
+.quote-banner {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  border-left: 4px solid var(--color-gold);
+  padding: 0.65rem 0 0.65rem 1rem;
+  margin: 0;
+  background: var(--activity-row-bg);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Tabla de contenidos */
+.toc-card h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 1rem;
+}
+
+.toc-groups {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 560px) {
+  .toc-groups {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 720px) {
+  .toc-groups {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.toc-group-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.toc-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc-group li {
+  margin-bottom: 0.4rem;
+}
+
+.toc-group a {
+  font-size: 0.88rem;
+  color: var(--color-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.toc-group a:hover {
+  border-bottom-color: var(--color-blue-muted);
+}
+
+/* Secciones por oración */
+.prayers-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.prayer-block {
+  scroll-margin-top: 1rem;
+}
+
+.prayer-block header {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--color-gold-soft);
+}
+
+.prayer-block h2 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-blue);
+  margin: 0 0 0.35rem;
+}
+
+.prayer-meta {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.prayer-meta span {
+  display: inline-block;
+}
+
+.prayer-meta span + span::before {
+  content: " · ";
+}
+
+.prayer-summary {
+  font-size: 0.94rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin: 0 0 1rem;
+}
+
+.prayer-summary strong {
+  color: var(--color-text);
+}
+
+.prayer-text-block {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin: 0;
+  padding: 1rem 1.1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-blue-muted);
+  border-radius: 10px;
+  white-space: pre-wrap;
+}
+
+.prayer-note {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin: 0.75rem 0 0;
+  font-style: italic;
+}
+
+.section-heading-card {
+  margin-bottom: 0.25rem !important;
+}
+
+.section-heading-card h2 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--color-gold);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.summary-footer-note {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.summary-footer-note a {
+  color: var(--color-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.summary-footer-note a:hover {
+  text-decoration: underline;
+}
+
+.summary-page .peace-msg--spaced {
+  margin-top: 1rem;
+}
+
+/* Página solo capitalarios (oraciones-resumen) */
+.capitalarios-resumen-header {
+  text-align: center;
+}
+
+.capitalarios-resumen-header .logo-container {
+  margin-bottom: 0.85rem;
+}
+
+.capitalarios-resumen-header .main-logo {
+  width: min(120px, 34vw);
+}
+
+.capitalarios-total-line {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  margin: 0.75rem 0 0;
+  line-height: 1.5;
+}
+
+.capitalarios-total-line strong {
+  color: var(--color-blue);
+  font-size: 1.15em;
+}
+
+.capitalarios-period-explainer {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin: 0 0 1rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.capitalarios-period-range {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-blue);
+  margin: 0.5rem 0 0.35rem;
+}
+
+.capitalarios-service-status {
+  font-size: 0.82rem;
+  min-height: 1.25em;
+  margin: 0.35rem 0 0;
+}
+
+.capitalarios-period-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.capitalarios-period-row select {
+  width: 100%;
+  padding: 0.6rem 0.65rem;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid rgba(117, 192, 213, 0.25);
+  border-radius: 10px;
+}
+
+[data-theme="dark"] .capitalarios-period-row select {
+  color-scheme: dark;
+}
+
+.capitalarios-delete-card {
+  border-color: rgba(180, 60, 50, 0.35);
+}
+
+.capitalarios-delete-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-text);
+  margin: 0 0 0.5rem;
+}
+
+.capitalarios-delete-warn {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.capitalarios-delete-status {
+  font-size: 0.82rem;
+  min-height: 1.25em;
+  margin: 0 0 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.btn-danger {
+  display: block;
+  width: 100%;
+  padding: 0.72rem 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+  background: rgba(165, 50, 45, 0.18);
+  border: 1px solid rgba(165, 50, 45, 0.55);
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: rgba(165, 50, 45, 0.28);
+  border-color: rgba(165, 50, 45, 0.75);
+}
+
+.btn-danger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+[data-theme="dark"] .btn-danger {
+  color: var(--color-text);
+  background: rgba(230, 100, 90, 0.12);
+  border-color: rgba(230, 120, 110, 0.45);
+}
+
+.capitalarios-print-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-blue);
+  margin: 0 0 0.5rem;
+}
+
+.capitalarios-print-hint {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin: 0 0 1.1rem;
+  line-height: 1.55;
+}
+
+.capitalarios-date-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.capitalarios-date-field {
+  flex: 1;
+  min-width: 140px;
+}
+
+.capitalarios-date-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gold);
+  margin-bottom: 0.4rem;
+}
+
+.capitalarios-date-field input[type="date"] {
+  width: 100%;
+  padding: 0.6rem 0.65rem;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid rgba(117, 192, 213, 0.25);
+  border-radius: 10px;
+}
+
+[data-theme="dark"] .capitalarios-date-field input[type="date"] {
+  color-scheme: dark;
+}
+
+.capitalarios-range-count {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  min-height: 1.35em;
+  margin: 0 0 1rem;
+}
+
+.capitalarios-print-card .btn-submit {
+  max-width: 100%;
+}
+
+/* Lectura de oraciones (oraciones-resumen) */
+.prayers-read-section {
+  scroll-margin-top: 0.5rem;
+}
+
+.prayers-read-main-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-blue);
+  margin: 0 0 0.5rem;
+}
+
+.prayers-read-intro {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin: 0 0 1rem;
+}
+
+.prayers-read-intro a {
+  color: var(--color-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.prayers-read-intro a:hover {
+  text-decoration: underline;
+}
+
+.prayers-read-nav {
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--activity-row-bg);
+  border-radius: 10px;
+  border: 1px solid var(--color-blue-muted);
+}
+
+.prayers-read-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prayers-read-nav-list a {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-blue);
+  text-decoration: none;
+}
+
+.prayers-read-nav-list a:hover {
+  text-decoration: underline;
+}
+
+.prayer-read-card {
+  scroll-margin-top: 1rem;
+  padding-top: 1rem;
+  margin-bottom: 0.25rem;
+  border-top: 1px solid var(--color-gold-soft);
+}
+
+.prayer-read-card:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.prayer-read-title {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  margin: 0 0 0.65rem;
+}
+
+.prayer-read-pre {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0.85rem 1rem;
+  white-space: pre-wrap;
+  background: var(--color-bg);
+  border: 1px solid var(--color-blue-muted);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+/* Alta de oraciones (oraciones-resumen) */
+.oraciones-admin-intro {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin: 0 0 1.1rem;
+}
+
+.oraciones-nombre-row {
+  margin-bottom: 0.75rem;
+}
+
+.oraciones-admin-section input[type="text"],
+.oraciones-admin-section textarea {
+  width: 100%;
+  padding: 0.6rem 0.65rem;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid rgba(117, 192, 213, 0.25);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.oraciones-format-hint {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin: 0 0 0.45rem;
+  line-height: 1.45;
+}
+
+.oraciones-admin-section textarea {
+  font-family: var(--font-serif);
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 10rem;
+  white-space: pre-wrap;
+  tab-size: 4;
+}
+
+[data-theme="dark"] .oraciones-admin-section input[type="text"],
+[data-theme="dark"] .oraciones-admin-section textarea {
+  color-scheme: dark;
+}
+
+.oraciones-list-title {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  margin: 1.75rem 0 0.65rem;
+}
+
+.oraciones-list-empty {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin: 0 0 0.75rem;
+}
+
+.oraciones-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.oraciones-list-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--activity-row-bg);
+  border: 1px solid var(--color-blue-muted);
+  border-radius: 10px;
+}
+
+.oraciones-list-meta {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.oraciones-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.oraciones-form-actions .btn-submit {
+  flex: 1;
+  margin-top: 0;
+}
+
+.btn-cancelar-edicion {
+  flex: 0 0 auto;
+  min-width: 170px;
+}
+
+.oraciones-list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.btn-oracion-edit,
+.btn-oracion-delete {
+  flex-shrink: 0;
+  padding: 0.4rem 0.75rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-oracion-edit {
+  color: #0a0a0f;
+  background: rgba(230, 180, 34, 0.95);
+}
+
+.btn-oracion-delete {
+  color: #fff;
+  background: rgba(180, 60, 60, 0.95);
+}
+
+.btn-oracion-edit:hover,
+.btn-oracion-delete:hover {
+  filter: brightness(1.08);
+}
+
+.oraciones-count-list {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.oraciones-count-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--activity-row-bg);
+  border: 1px solid var(--color-blue-muted);
+  border-radius: 10px;
+}
+
+.oraciones-count-name {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+.oraciones-count-value {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-blue);
+}
