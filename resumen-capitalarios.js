@@ -305,11 +305,10 @@
       return;
     }
 
-    if (
-      window.prompt(
-        "Confirmación: escribe la palabra ELIMINAR (mayúsculas) para borrar."
-      ) !== "ELIMINAR"
-    ) {
+    var confirmText = window.prompt(
+      "Confirmación: escribe la palabra ELIMINAR para borrar."
+    );
+    if (!confirmText || confirmText.trim().toUpperCase() !== "ELIMINAR") {
       if (statusEl) statusEl.textContent = "Operación cancelada.";
       return;
     }
@@ -337,7 +336,9 @@
       console.error(deleteResult.error);
       if (statusEl) {
         statusEl.textContent =
-          "Error: " + (deleteResult.error.message || "no se pudo eliminar");
+          "Error: " +
+          (deleteResult.error.message || "no se pudo eliminar") +
+          ". Verifica permisos para borrar en Supabase.";
       }
       return;
     }
@@ -382,6 +383,14 @@
         eliminarCapitalariosPorRango();
       });
 
+    var deleteFrom = document.getElementById("deleteDateFrom");
+    var deleteTo = document.getElementById("deleteDateTo");
+    if (deleteFrom && deleteTo) {
+      var todayIso = new Date().toISOString().slice(0, 10);
+      if (!deleteFrom.value) deleteFrom.value = todayIso;
+      if (!deleteTo.value) deleteTo.value = todayIso;
+    }
+    
     loadCapitalariosForPeriod();
   }
 
