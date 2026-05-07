@@ -1,6 +1,6 @@
-const supabaseUrl = "https://kvvxplikgixbilvdbiwq.supabase.co";
+const supabaseUrl = "https://ptvuhwbpfuiwaoiqxqft.supabase.co";
 
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2dnhwbGlrZ2l4YmlsdmRiaXdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTk3NzQsImV4cCI6MjA5MzY3NTc3NH0.9ZFohqNx_zPBTklasZMz7bXpQa_60aRuEXO_jATCDts";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB0dnVod2JwZnVpd2FvaXF4cWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMDgwOTksImV4cCI6MjA5MzY4NDA5OX0.ohR_CSpQ8dlIZaya5SuP1YLtc42dzBfI5qScq6GdEeg";
 
 
 
