@@ -4,6 +4,32 @@
     typeof SUPABASE_CAPITALARIOS_TABLE !== "undefined"
       ? SUPABASE_CAPITALARIOS_TABLE
       : "capitalarios";
+  var AUDIO_PLAYS_TABLE =
+    typeof SUPABASE_AUDIO_PLAYS_TABLE !== "undefined"
+      ? SUPABASE_AUDIO_PLAYS_TABLE
+      : "audio_plays";
+  var ROSARIO_MEDIA_ITEMS = [
+    {
+      id: "rosario_gozosos",
+      label: "Misterios Gozosos Schoenstatt - Lunes y Sábado",
+    },
+    {
+      id: "rosario_dolorosos",
+      label: "Misterios Dolorosos Schoenstatt - Martes y Viernes",
+    },
+    {
+      id: "rosario_gloriosos",
+      label: "Misterios Gloriosos Schoenstatt - Miércoles y Domingo",
+    },
+    {
+      id: "rosario_luminosos",
+      label: "Misterios Luminosos Schoenstatt - Jueves",
+    },
+    {
+      id: "rosario_adoracion_santisimo",
+      label: "Adoración al Santísimo - Cada día, especialmente el día Jueves",
+    },
+  ];
 
   var MES_NOMBRES = [
     "Enero",
@@ -61,6 +87,78 @@
     if (!el) return;
     el.textContent = msg || "";
     el.style.color = isError ? "var(--color-gold)" : "var(--color-text-muted)";
+  }
+
+  function setRosarioCountStatus(msg, isError) {
+    var el = document.getElementById("rosarioCountStatus");
+    if (!el) return;
+    el.textContent = msg || "";
+    el.style.color = isError ? "var(--color-gold)" : "var(--color-text-muted)";
+  }
+
+  async function cargarConteoRosarioEnPeriodo(isoStart, isoEndInclusive) {
+    var listEl = document.getElementById("rosarioCountList");
+    var client = typeof getSupabase === "function" ? getSupabase() : null;
+    if (!listEl) return;
+
+    listEl.innerHTML = "";
+
+    if (!client) {
+      setRosarioCountStatus("Sin conexión para calcular reproducciones.", true);
+      return;
+    }
+
+    setRosarioCountStatus("Calculando reproducciones del rosario…", false);
+
+    var ids = [];
+    for (var i = 0; i < ROSARIO_MEDIA_ITEMS.length; i++) {
+      ids.push(ROSARIO_MEDIA_ITEMS[i].id);
+    }
+
+    var playsRes = await client
+      .from(AUDIO_PLAYS_TABLE)
+      .select("audio_id")
+      .eq("event_type", "ended")
+      .in("audio_id", ids)
+      .gte("played_at", isoStart)
+      .lte("played_at", isoEndInclusive);
+
+    if (playsRes.error) {
+      setRosarioCountStatus(
+        "No se pudo calcular reproducciones: " +
+          (playsRes.error.message || "inténtalo más tarde."),
+        true
+      );
+      return;
+    }
+
+    var conteo = {};
+    var rows = playsRes.data || [];
+    for (var j = 0; j < rows.length; j++) {
+      var mediaId = rows[j] && rows[j].audio_id;
+      if (!mediaId) continue;
+      conteo[mediaId] = (conteo[mediaId] || 0) + 1;
+    }
+
+    for (var k = 0; k < ROSARIO_MEDIA_ITEMS.length; k++) {
+      var itemData = ROSARIO_MEDIA_ITEMS[k];
+      var item = document.createElement("li");
+      item.className = "oraciones-count-item";
+
+      var nameEl = document.createElement("span");
+      nameEl.className = "oraciones-count-name";
+      nameEl.textContent = itemData.label;
+
+      var valueEl = document.createElement("span");
+      valueEl.className = "oraciones-count-value";
+      valueEl.textContent = String(conteo[itemData.id] || 0);
+
+      item.appendChild(nameEl);
+      item.appendChild(valueEl);
+      listEl.appendChild(item);
+    }
+
+    setRosarioCountStatus("", false);
   }
 
   async function cargarConteoOracionesEnPeriodo(isoStart, isoEndInclusive) {
@@ -231,6 +329,7 @@
     if (totalEl) totalEl.textContent = String(n);
 
     await cargarConteoOracionesEnPeriodo(isoStart, isoEndInclusive);
+    await cargarConteoRosarioEnPeriodo(isoStart, isoEndInclusive);
 
     if (n === 0) {
       const { count: totalEnTabla, error: errTotal } = await client

@@ -7,6 +7,7 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 var SUPABASE_CAPITALARIOS_TABLE = "capitalarios";
 
 var SUPABASE_ORACIONES_TABLE = "oraciones";
+var SUPABASE_AUDIO_PLAYS_TABLE = "audio_plays";
 
 /**
  * Unifica saltos de línea (Windows / Mac / Unicode) para que el texto se vea
@@ -341,6 +342,10 @@ async function guardarCapitalario() {
   if (ofreceEl) ofreceEl.value = "";
   if (agradeceEl) agradeceEl.value = "";
   if (pideEl) pideEl.value = "";
+  if (oracionEl) {
+    oracionEl.value = "";
+    mostrarOracion();
+  }
 
   await actualizarContadorCapitalarios();
 }
@@ -551,6 +556,123 @@ function copiarOracion() {
 
 }
 
+async function insertarReproduccionRosarioRemota(row) {
+  var client = getSupabase();
+  if (!client) {
+    return {
+      data: null,
+      error: { message: "No se pudo conectar con el servicio." },
+    };
+  }
+  return await client.from(SUPABASE_AUDIO_PLAYS_TABLE).insert(row);
+}
+
+function setRosarioCountLoading() {
+  var countEls = document.querySelectorAll(".rosario-play-count[data-media-id]");
+  for (var i = 0; i < countEls.length; i++) {
+    countEls[i].textContent = "…";
+  }
+}
+
+function setRosarioCountByMap(countByMediaId) {
+  var countEls = document.querySelectorAll(".rosario-play-count[data-media-id]");
+  for (var i = 0; i < countEls.length; i++) {
+    var el = countEls[i];
+    var mediaId = el.getAttribute("data-media-id");
+    var n = countByMediaId && mediaId ? countByMediaId[mediaId] || 0 : 0;
+    el.textContent = String(n);
+  }
+}
+
+async function cargarConteoRosario() {
+  var medias = document.querySelectorAll(
+    ".rosario-module .rosario-trackable-media[data-media-id]"
+  );
+  if (!medias || !medias.length) return;
+
+  if (!getSupabase() && !tryCreateSupabaseClient()) {
+    setRosarioCountByMap({});
+    return;
+  }
+
+  var mediaIds = [];
+  for (var i = 0; i < medias.length; i++) {
+    var mediaId = medias[i].getAttribute("data-media-id");
+    if (mediaId) mediaIds.push(mediaId);
+  }
+
+  if (!mediaIds.length) return;
+
+  setRosarioCountLoading();
+
+  var client = getSupabase();
+  if (!client) {
+    setRosarioCountByMap({});
+    return;
+  }
+
+  var rangoHoy = rangoDiaLocalHoy();
+
+  var res = await client
+    .from(SUPABASE_AUDIO_PLAYS_TABLE)
+    .select("audio_id")
+    .eq("event_type", "ended")
+    .gte("played_at", rangoHoy.desde)
+    .lt("played_at", rangoHoy.hasta)
+    .in("audio_id", mediaIds);
+
+  if (res.error) {
+    console.error("Conteo rosario:", res.error);
+    setRosarioCountByMap({});
+    return;
+  }
+
+  var countByMediaId = {};
+  var rows = res.data || [];
+  for (var j = 0; j < rows.length; j++) {
+    var id = rows[j] && rows[j].audio_id;
+    if (!id) continue;
+    countByMediaId[id] = (countByMediaId[id] || 0) + 1;
+  }
+  setRosarioCountByMap(countByMediaId);
+}
+
+function initRosarioTracking() {
+  var medias = document.querySelectorAll(
+    ".rosario-module .rosario-trackable-media[data-media-id]"
+  );
+  if (!medias || !medias.length) return;
+
+  for (var i = 0; i < medias.length; i++) {
+    medias[i].addEventListener("ended", function (ev) {
+      var target = ev.currentTarget;
+      if (!target || !target.getAttribute) return;
+
+      var mediaId = target.getAttribute("data-media-id");
+      if (!mediaId) return;
+
+      var mediaTitle = target.getAttribute("data-media-title") || mediaId;
+      var row = {
+        audio_id: mediaId,
+        audio_title: mediaTitle,
+        event_type: "ended",
+        played_at: new Date().toISOString(),
+        page_path: window.location.pathname || "index.html",
+      };
+
+      insertarReproduccionRosarioRemota(row).then(function (result) {
+        if (result && result.error) {
+          console.error("No se pudo guardar reproducción:", result.error);
+          return;
+        }
+        cargarConteoRosario();
+      });
+    });
+  }
+
+  cargarConteoRosario();
+}
+
 
 
 (function initCapitalariosUi() {
@@ -578,6 +700,7 @@ function copiarOracion() {
     if (typeof cargarOracionesSelector === "function") {
       cargarOracionesSelector();
     }
+    initRosarioTracking();
   }
 
   if (document.readyState === "loading") {

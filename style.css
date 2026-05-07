@@ -525,6 +525,51 @@ body {
   color: var(--color-text);
 }
 
+.rosario-module .section-title {
+  margin-bottom: 1rem;
+}
+
+.rosario-media-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.rosario-media-item,
+.rosario-video-wrapper {
+  border: 1px solid var(--color-blue-muted);
+  border-radius: 10px;
+  background: var(--activity-row-bg);
+  padding: 0.85rem;
+}
+
+.rosario-media-subtitle {
+  margin: 0 0 0.55rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-blue);
+}
+
+.rosario-media-count {
+  margin: 0 0 0.65rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.rosario-play-count {
+  color: var(--color-blue);
+  font-weight: 700;
+}
+
+.rosario-video-wrapper {
+  margin-top: 0.95rem;
+}
+
+.rosario-video-player {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
 .btn-action {
   flex: 1;
   min-width: 120px;
